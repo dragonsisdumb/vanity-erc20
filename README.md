@@ -165,9 +165,7 @@ Paid: 0.002102087465674804 ETH (571082 gas * 3.680885522 gwei)
 
 I have modified `SHFL.sol` contract address to take a parameter within the constructor to tell it where to send the initial 1B tokens.
 
-It should not be `msg.sender` when doing CREATE2 method as sometimes this value will be the CREATE2 deployer proxy address and the tokens will be sent to the wrong intended address.
-
-For example, if we proxy the CREATE2 through a factory contract that does not forward the deployer address as `tx.origin`, then the tokens will land in the proxy address.
+It should not be `msg.sender` when doing CREATE2 method as this value will be the CREATE2 deployer proxy address and the tokens will be sent to the wrong intended address (in this case, they would be sent to [`0x4e59b44847b379578588920cA78FbF26c0B4956C`](https://github.com/Arachnid/deterministic-deployment-proxy?tab=readme-ov-file#deterministic-deployment-proxy) and not our address)
 
 ![Tokens being transferred to wrong address](./docs/img/shfl/tokenstransfer.png)
 
